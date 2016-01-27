@@ -1,0 +1,31 @@
+*{
+<!-- 
+描述:地址联动自定义标签页
+动作:无
+作者:maodun
+创建时间:2015-08-05,12:55
+参数列表:
+		参数名			必填					        取值类型					默认值					      描述
+--------------------------------------------------------------------------------------------------------------------------------
+	  name_arr	  		 否					  {Array}		   			 []			  	 name数组,依次对应省、市、区县select
+    def_code_arr	  	 否					  {Array}					 []		     	   默认代码数组,依次对应省、市、区县select
+--------------------------------------------------------------------------------------------------------------------------------
+调用范例1:
+#{baseframe.addrlinkage /}
+调用范例2:
+#{baseframe.addrlinkage name_arr:['province', 'city', 'county'], def_code_arr:['430000', '430600', '430623'] /}
+ -->
+}*
+已过时，请参考baseframe.groovy.CustomTags._addrLinkage方法
+*{
+#{if _name_arr == null}
+	#{set _name_arr:[] /}
+#{/if}
+#{if _def_code_arr == null}
+	#{set _def_code_arr:[] /}
+#{/if}
+#{set __otv_addrlinkage_group_num : play.libs.Codec.UUID() /}
+<select name="${_name_arr[0]}" __otp_provinces __otp_group_num="${__otv_addrlinkage_group_num}" __otp_def_code="${_def_code_arr[0]}"></select>
+<select name="${_name_arr[1]}" __otp_cities __otp_group_num="${__otv_addrlinkage_group_num}" __otp_def_code="${_def_code_arr[1]}"></select>
+<select name="${_name_arr[2]}" __otp_counties __otp_group_num="${__otv_addrlinkage_group_num}" __otp_def_code="${_def_code_arr[2]}"></select>
+}*

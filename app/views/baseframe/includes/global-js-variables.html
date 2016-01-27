@@ -1,0 +1,63 @@
+#{if play.mode.isDev()}
+<!-- 
+描述:全局JS变量脚本引入页
+动作:无
+作者:maodun
+创建时间:2015-08-05,12:55
+ -->
+#{/if}
+<script type="text/javascript">
+
+	var __ogv = {}; // 自己的全局变量
+	__ogv.routes = {}; // 路由集
+	__ogv.prefixes = {}; // 前缀集
+	__ogv.fns = {}; // 函数集
+	__ogv.img_def_src = '/public/baseframe/imgs/def.png'; // 图片默认src
+	
+	__ogv.routes.go_login = '${is_back_req}' == 'Y' ? '@{back.loginreg.Login.goLogin()}' : '@{front.loginreg.Login.goLogin()}'; // 登录页
+	__ogv.routes.upload_img = '@{baseframe.FileOperation.uploadImg()}'; // 上传图片
+	__ogv.routes.upload_imgs = '@{baseframe.FileOperation.uploadImgs()}'; // 上传图片集
+	__ogv.routes.download_file = '@{baseframe.FileOperation.downloadFile()}'; // 下载文件
+	__ogv.routes.del_file = '@{baseframe.FileOperation.delFile()}'; // 删除文件
+	__ogv.routes.upload_docu = '@{baseframe.FileOperation.uploadDocu()}'; // 上传文档
+	__ogv.routes.get_provinces = '@{baseframe.Dict.getProvinces()}'; // 获取省份集(仅适用于ajax请求)
+	__ogv.routes.get_cities = '@{baseframe.Dict.getCities()}'; // 获取城市集(根据省份id)(仅适用于ajax请求)
+	__ogv.routes.get_counties = '@{baseframe.Dict.getCounties()}'; // 获取区县集(根据城市id)(仅适用于ajax请求)
+	__ogv.routes.generate_vcode_img = '@{baseframe.FileOperation.generateVcodeImg()}'; // 生成验证码图片
+	__ogv.routes.query_att = '@{baseframe.FileOperation.queryAtt()}'; // 查询附件 (仅对于Ajax请求)
+	
+	__ogv.prefixes.img_atcmt_src = '/public/atcmt/imgs/';
+	
+	__ogv.fns.loadImgs = function () {
+		$.each($('img[__otp_fullname]'), function (i, v) {
+			var __this = $(v);
+			if (__this.data('__od_img_lazyload_mark') == 'Y') {
+				return true;
+			}
+			var fullname = $.trim(__this.attr('__otp_fullname'));
+			if (fullname == '') {
+				__this.css('background-image', 'none').attr('src', __ogv.img_def_src);
+				return true;
+			}
+			var tmp_fn = function () {
+				__this.attr('data-ori-src', __ogv.prefixes.img_atcmt_src + fullname).lazyload({
+					data_attribute : 'ori-src',
+					effect : 'fadeIn',
+					event : 'scroll mouseenter',
+					skip_invisible : false, // 是否跳过可见区域隐藏的图片
+					threshold : 200, // 当距离图片还有200px的时候,就开始加载图片
+					failurelimit : 10
+				});
+				__this.css('background-image', 'none');
+			};
+			if ('${preloadImgSrc}' == 'null') {
+				tmp_fn();
+			}
+			else {
+				new Timer(300, 1, null, null, tmp_fn, null).start();
+			}
+			__this.data('__od_img_lazyload_mark', 'Y');
+		});
+	};
+
+</script>

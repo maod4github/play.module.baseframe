@@ -1,0 +1,643 @@
+#{if play.mode.isDev()}
+<!-- 
+描述:视图架构范例-前台范例首页
+动作:controllers.Demo.home()
+作者:maodun
+创建时间:2015-08-05,12:55
+ -->
+#{/if}
+
+#{extends '/app/views/front/base.html' /}
+
+<script type="text/javascript">
+$(function () {
+
+	$('[__otp_id="back"]').click(function () {
+		window.location.href = '/';
+	});
+
+	$('#form-001').submit(function () {
+		$('#form-001').validAjaxSubmit();
+		return false;
+	});
+
+});
+</script>
+
+<br /><br /><br /><br />
+<a __otp_id="back" href="">返回</a>
+<br /><br /><br /><br />
+#{set fn : '20151128104649-2836e4ae-f866-4c32-b8bb-4f8e1f74a6f0.jpg' /}
+<img src="${fn?.getBFullname()?.getAtcmtSrc()}" __otp_fullname="${fn?.getLFullname()}" style="width:100px; height:40px;"/>
+<br>
+<img src="${fn?.getBFullname()?.getAtcmtSrc()}" __otp_fullname="${fn?.getMLFullname()}" style="width:150px; height:60px;"/>
+<br>
+<img src="${fn?.getBFullname()?.getAtcmtSrc()}" __otp_fullname="${fn?.getMFullname()}" style="width:200px; height:80px;"/>
+<br>
+<img src="${fn?.getBFullname()?.getAtcmtSrc()}" __otp_fullname="${fn?.getMHFullname()}" style="width:400px; height:150px;"/>
+<br>
+<img src="${fn?.getBFullname()?.getAtcmtSrc()}" __otp_fullname="${fn?.getHFullname()}" style="width:600px; height:200px;"/>
+<br>
+<img src="${fn?.getBFullname()?.getAtcmtSrc()}" __otp_fullname="${fn}" style="width:800px; height:250px;"/>
+<br /><br /><br /><br />
+Bannner图示例1<hr />
+#{bf.bannerBox1 banners, height:'200px' /}
+<br /><br /><br /><br />
+Bannner图示例2<hr />
+#{bf.bannerBox2 banners, width:'1080px', height:'200px' /}
+<br /><br /><br /><br />
+异步表单提交实例<hr />
+<form id="form-001" action="@{Demo.ajaxSubmit()}">
+	name:<input type="text" name="name" __otp_validate __otp_metadata="{required:true, emailAddr:true, regexp:/^maodun@eims.com.cn$/, msgs:{email:'电子邮件啊啊啊~~~'}}"  />
+	<br />
+	sex:<select name="sex" >#{include '/app/views/baseframe/includes/sex-options.html' /}</select>
+	<br />
+	a:<textarea name="a" rows="" cols="" __otp_validate __otp_metadata="{equals:'#form-001>[name=name]', msgs:{equals:'同name一样啊'}}"></textarea>
+	<br />
+	b:
+	<radiogroup >
+		<label><input type="radio" name="b" value="have" />有计划</label>
+		<label><input type="radio" name="b" value="not" __otp_validate __otp_metadata="{required:true, msgs:{required:'必须选择没计划'}}" />没计划</label>
+	</radiogroup>
+	<br />
+	c:
+	<checkboxgroup __otp_validate __otp_metadata="{minlen:2}" >
+		<label><input type="checkbox" name="c" value="唱歌" />唱歌</label>
+		<label><input type="checkbox" name="c" value="跳舞" __otp_validate __otp_metadata="{required:true}" />跳舞</label>
+		<label><input type="checkbox" name="c" value="打球" />打球</label>
+	</checkboxgroup>
+	<br />
+	<input id="form-ajax-submit-btn" type="submit" value="aaaaaa" />
+</form>
+<br /><br /><br /><br />
+动态分页示例<hr />
+<div>
+	#{list paging_bean.data, as:'datum' }
+		${datum}<br />
+	#{/list}
+</div>
+<div>
+	#{bf.paging paging_bean}
+		alert(
+			'当前页码 : ' + bean.cur + '\n' +
+			'总页码 : ' + bean.pages + '\n' + 
+			'连续分页数 : ' + bean.groups
+		);
+		window.location.href = '@{Demo.home()}?cur_page_num=' + bean.cur;
+	#{/bf.paging}
+</div>
+<br /><br /><br /><br />
+日期时间控件实例<hr />
+<input __otp_dtw_date />
+<input __otp_dtw_datetime />
+<br /><br /><br /><br />
+图片上传示例<hr />
+<!-- 通过$('#uiw-101').getFullname()获取上传后需要保存至数据库的值. -->
+<div id="uiw-101" class="__oc_uiw __oc_unfold">
+	<span>上传单张图片</span>
+	<input type="file" __otp_maxsize="700" />
+	<input type="hidden" name="img" value="20150924160028-c46f5484-c57b-4548-aa2c-b0d97feffb8e-85076483-infos-85076483-561276-85076483-Lighthouse.jpg" >
+</div>
+<br /><br />
+<img src="" style="width:150px; height:150px;" __otp_group_num="uiw_preview_101" />
+<div id="uiw-102" class="__oc_uiw __oc_preview" __otp_group_num="uiw_preview_101">
+	<span>上传单张图片</span>
+	<input type="file" __otp_maxsize="700" >
+	<input type="hidden" name="img" value="20150914193247-1d39e957-ec37-43c5-ac00-a406ea831d1e-85076483-infos-85076483-595284-85076483-Hydrangeas.jpg" >
+</div>
+<br /><br />
+<!-- 通过$('#uiw-102').getFullnameArr()获取上传后需要保存至数据库的值. -->
+<div id="uiw-103" class="__oc_uiw __oc_more" __otp_group_num="uiw_more_101">
+	<span>上传多张图片</span>
+	<input type="file" name="imgs" __otp_maxsize="2048" />
+</div>
+#{set img_arr : [
+	'20150919090222-6bcd6dab-cd4d-4ad8-8bf4-011c4f98a7d4-85076483-infos-85076483-414-85076483-calendar_101.png',
+	'20150919090222-8bc89b78-a936-4118-98bd-16a4000afd4e-85076483-infos-85076483-879394-85076483-Chrysanthemum.jpg', 
+	'20150919090222-34488c77-a417-448a-8833-75e95c344e35-85076483-infos-85076483-33199-85076483-del_icon.png', 
+	'20150919090222-4ccc132c-5723-470d-b681-94f6c973b17d-85076483-infos-85076483-845941-85076483-Desert.jpg', 
+	'20150919090222-619319cf-bf93-420a-bf1a-afbc57ccf9bc-85076483-infos-85076483-12326-85076483-ewm.png', 
+	'20150919090222-872a9963-801e-4858-b0fd-cec7b80be86c-85076483-infos-85076483-595284-85076483-Hydrangeas.jpg', 
+	'20150919090222-b64111ac-bd79-4b0f-a938-f81168fda058-85076483-infos-85076483-775702-85076483-Jellyfish.jpg', 
+	'20150919090222-6a2548d9-27d8-411d-bc76-e7bdb7952b07-85076483-infos-85076483-780831-85076483-Koala.jpg', 
+	'20150919090222-eab2eeb4-2e28-48da-aaef-b5fc616c8cda-85076483-infos-85076483-561276-85076483-Lighthouse.jpg', 
+	'20150919090222-12514fb1-0589-44c7-bf4d-25c95481c00f-85076483-infos-85076483-777835-85076483-Penguins.jpg', 
+	'20150919090222-7f4a712e-7913-475e-91ae-19010c577213-85076483-infos-85076483-3057-85076483-pzlc12.png', 
+	'20150919090222-3283147f-4091-4faa-8e52-416acc7c4749-85076483-infos-85076483-620888-85076483-Tulips.jpg'
+] /}
+#{bf.uiwMoreDisp img_arr, group_num:'uiw_more_101', max:5 /}
+<br /><br /><br /><br />
+文档上传示例<hr />
+<!-- 通过$('#udw-101').getFullname()获取上传后需要保存至数据库的值. -->
+<div id="udw-101" class="__oc_udw __oc_unfold">
+	请上传文档
+	<input type="file" __otp_maxsize="2048" __otp_types="doc,docx,pdf,pdfx" >
+	<input type="hidden" name="docu" value="20150924154452-55ea89e8-b013-4ef7-b3e0-fbeb18f48a6a-85076483-infos-85076483-476989-85076483-UI样式修改.docx" >
+</div>
+<br /><br /><br /><br />
+文件下载示例<hr />
+<input type="button" value="下载图片" __otp_dit __otp_fullname="20150818094754-1920437e-dc6e-4a48-80f4-11a9716496c9-shove-img-Koalas.jpg" />
+<input type="button" value="下载文档" __otp_ddt __otp_fullname="20150818115309-75dddd44-f576-4040-92cd-5e5ba0ab20e1-shove-docu-UI样式修改.docx" />
+<br /><br /><br /><br />
+省、市、区县下拉列表三级联动示例<span style="color:#E14339;">（请先确保你的数据库已导入“/com.shove.play.modules.baseframe/需要导入的SQL文件/t-dict-addr-tables-v1.0.3.sql”文件然后去掉下方注释即可）</span><br /><hr />
+#{bf.addrLinkage /}
+<br />
+<br />
+#{bf.addrLinkage name_arr:['province', 'city', 'county'], def_code_arr:['430000', '430600', '430623'] /}
+
+*{
+<!-- 
+<select __otp_provinces __otp_group_num="addr_101" __otp_def_code="430000"></select>
+<select __otp_cities __otp_group_num="addr_101" __otp_def_code="430600"></select>
+<select __otp_counties __otp_group_num="addr_101" __otp_def_code="430623"></select>
+ -->
+}*
+<br /><br /><br /><br />
+默认图片展示实例<hr />
+<img src="" />
+<br /><br /><br /><br />
+图片预览实例<hr />
+<img src="" __otp_fullname="20150914193247-1d39e957-ec37-43c5-ac00-a406ea831d1e-85076483-infos-85076483-595284-85076483-Hydrangeas.jpg" style="width:150px; height:150px;"/>
+<br /><br /><br /><br />
+预览弹层实例<hr />
+<input type="button" value="预览弹层" __otp_pil_trigger __otp_fullname="20150914193247-1d39e957-ec37-43c5-ac00-a406ea831d1e-85076483-infos-85076483-595284-85076483-Hydrangeas.jpg" />
+<br /><br /><br /><br />
+验证码图片实例<hr />
+<img src="" title="看不清？换一张" style="cursor:pointer;" __otp_vcode_img >
+<br /><br /><br /><br />
+CSS3图标示例，大小等比缩放方法请参见hover效果<hr />
+<style>
+.icon {transform:scale(1); transition:0.3s;}
+.icon:HOVER {transform:scale(2.8); transition:0.3s; cursor:pointer;}
+</style>
+<div class="container">
+	<!-- ### Down Arrow ### -->
+	<div class="icon">
+		<div class="downArrow"></div>
+	</div>
+
+	<!-- ### Up Arrow ### -->
+	<div class="icon">
+		<div class="upArrow"></div>
+	</div>
+
+	<!-- ### Left Arrow ### -->
+	<div class="icon">
+		<div class="leftArrow"></div>
+	</div>
+
+	<!-- ### Right Arrow ### -->
+	<div class="icon">
+		<div class="rightArrow"></div>
+	</div>
+
+	<!-- ### Home ### -->
+	<div class="icon">
+		<div class="home"></div>
+		<div class="chimney"></div>
+	</div>
+
+	<!-- ### Disc ### -->
+	<div class="icon">
+		<div class="disc"></div>
+	</div>
+
+	<!-- ### Heart ### -->
+	<div class="icon">
+		<div class="heart"></div>
+	</div>
+
+	<!-- ### Pencil ### -->
+	<div class="icon">
+		<div class="pencil"></div>
+	</div>
+
+	<!-- ### Chat Box ### -->
+	<div class="icon">
+		<div class="chat"></div>
+		<div class="lines"></div>
+	</div>
+
+	<!-- ### Tick ### -->
+	<div class="icon">
+		<div class="tick"></div>
+	</div>
+
+	<!-- ### Cross ### -->
+	<div class="icon">
+		<div class="cross"></div>
+	</div>
+
+	<!-- ### User ### -->
+	<div class="icon">
+		<div class="user"></div>
+		<div class="shoulder"></div>
+	</div>
+
+	<!-- ### Search ### -->
+	<div class="icon">
+		<div class="search"></div>
+	</div>
+
+	<!-- ### Search with base ### -->
+	<div class="icon">
+		<div class="searchB"></div>
+	</div>
+
+	<!-- ### Phone ### -->
+	<div class="icon">
+		<div class="phone"></div>
+	</div>
+
+	<!-- ### iPod ### -->
+	<div class="icon">
+		<div class="ipod"></div>
+	</div>
+
+	<!-- ### Tab ### -->
+	<div class="icon">
+		<div class="tab"></div>
+	</div>
+
+	<!-- ### Graph1 ### -->
+	<div class="icon">
+		<div class="graph1"></div>
+		<div class="bars"></div>
+	</div>
+
+	<!-- ### Screen ### -->
+	<div class="icon">
+		<div class="screen"></div>
+	</div>
+
+	<!-- ### Cloud ### -->
+	<div class="icon">
+		<div class="cloud"></div>
+	</div>
+
+	<!-- ### Cloud-Up ### -->
+	<div class="icon">
+		<div class="cloudUp"></div>
+		<div class="cloudUpArrow"></div>
+	</div>
+
+	<!-- ### Cloud-Down ### -->
+	<div class="icon">
+		<div class="cloudDown"></div>
+		<div class="cloudDownArrow"></div>
+	</div>
+
+	<!-- ### Page ### -->
+	<div class="icon">
+		<div class="page"></div>
+		<div class="pageLines"></div>
+	</div>
+
+	<!-- ### RSS ### -->
+	<div class="icon">
+		<div class="rss"></div>
+	</div>
+
+	<!-- ### Battery Full ### -->
+	<div class="icon">
+		<div class="batFull"></div>
+	</div>
+
+	<!-- ### Battery Medium ### -->
+	<div class="icon">
+		<div class="batMed"></div>
+	</div>
+
+	<!-- ### Battery Low ### -->
+	<div class="icon">
+		<div class="batLow"></div>
+	</div>
+
+	<!-- ### Battery Empty ### -->
+	<div class="icon">
+		<div class="batEmpty"></div>
+	</div>
+
+	<!-- ### Speaker Volume Full ### -->
+	<div class="icon">
+		<div class="speakerVolF"></div>
+	</div>
+
+	<!-- ### Speaker Volume Half ### -->
+	<div class="icon">
+		<div class="speakerVolH"></div>
+	</div>
+
+	<!-- ### Speaker Volume Mute ### -->
+	<div class="icon">
+		<div class="speakerVolM"></div>
+	</div>
+
+	<!-- ### Play ### -->
+	<div class="icon">
+		<div class="play"></div>
+	</div>
+
+	<!-- ### Pause ### -->
+	<div class="icon">
+		<div class="pause"></div>
+	</div>
+
+	<!-- ### Forward ### -->
+	<div class="icon">
+		<div class="forward"></div>
+	</div>
+
+	<!-- ### Next ### -->
+	<div class="icon">
+		<div class="next"></div>
+	</div>
+
+	<!-- ### Rewind ### -->
+	<div class="icon">
+		<div class="rewind"></div>
+	</div>
+
+	<!-- ### Previous ### -->
+	<div class="icon">
+		<div class="previous"></div>
+	</div>
+
+	<!-- ### Stop ### -->
+	<div class="icon">
+		<div class="stop"></div>
+	</div>
+
+	<!-- ### Location ### -->
+	<div class="icon">
+		<div class="location"></div>
+	</div>
+
+	<!-- ### Clock ### -->
+	<div class="icon">
+		<div class="clock"></div>
+	</div>
+
+	<!-- ### Clock Alt ### -->
+	<div class="icon">
+		<div class="clockAlt"></div>
+	</div>
+
+	<!-- ### Pointer Right ### -->
+	<div class="icon">
+		<div class="pointerRight"></div>
+	</div>
+
+	<!-- ### Pointer Top ### -->
+	<div class="icon">
+		<div class="pointerTop"></div>
+	</div>
+
+	<!-- ### Pointer Left ### -->
+	<div class="icon">
+		<div class="pointerLeft"></div>
+	</div>
+
+	<!-- ### Pointer Down ### -->
+	<div class="icon">
+		<div class="pointerDown"></div>
+	</div>
+
+	<!-- ### Signals ### -->
+	<div class="icon">
+		<div class="signal1"></div>
+		<div class="signal2"></div>
+	</div>
+
+	<!-- ### Graph2 ### -->
+	<div class="icon">
+		<div class="base"></div>
+		<div class="bars2"></div>
+	</div>
+
+	<!-- ### Ribbon ### -->
+	<div class="icon">
+		<div class="ribbon"></div>
+	</div>
+
+	<!-- ### Video Cam ### -->
+	<div class="icon">
+		<div class="videoCam"></div>
+	</div>
+
+	<!-- ### Star ### -->
+	<div class="icon">
+		<div class="star"></div>
+	</div>
+
+	<!-- ### HeadPhones ### -->
+	<div class="icon">
+		<div class="headphones"></div>
+	</div>
+
+	<!-- ### Capsule ### -->
+	<div class="icon">
+		<div class="capsule"></div>
+	</div>
+
+	<!-- ### Microphone ### -->
+	<div class="icon">
+		<div class="mic"></div>
+		<div class="holder"></div>
+	</div>
+
+	<!-- ### Tower ### -->
+	<div class="icon">
+		<div class="tower"></div>
+		<div class="waves"></div>
+	</div>
+
+	<!-- ### IceCream ### -->
+	<div class="icon">
+		<div class="icecream"></div>
+	</div>
+
+	<!-- ### Golf ### -->
+	<div class="icon">
+		<div class="golf_stick"></div>
+		<div class="golf_ball"></div>
+	</div>
+
+	<!-- ### PolyBag ### -->
+	<div class="icon">
+		<div class="polybag"></div>
+	</div>
+
+	<!-- ### BriefCase ### -->
+	<div class="icon">
+		<div class="briefcase_handle"></div>
+		<div class="briefcase"></div>
+	</div>
+
+	<!-- ### Roller ### -->
+	<div class="icon">
+		<div class="roller_brush"></div>
+		<div class="roller_handle"></div>
+	</div>
+
+	<!-- ### Magnet ### -->
+	<div class="icon">
+		<div class="magnet"></div>
+	</div>
+
+	<!-- ### Bomb ### -->
+	<div class="icon">
+		<div class="bomb"></div>
+	</div>
+
+	<!-- ### BirdHouse ### -->
+	<div class="icon">
+		<div class="birdhouse"></div>
+		<div class="birdhouse_holes"></div>
+	</div>
+
+	<!-- ### Woofer ### -->
+	<div class="icon">
+		<div class="woofer"></div>
+	</div>
+
+	<!-- ### HandBag ### -->
+	<div class="icon">
+		<div class="handbag"></div>
+	</div>
+
+	<!-- ### Bell ### -->
+	<div class="icon">
+		<div class="belltop"></div>
+		<div class="bellbottom"></div>
+	</div>
+
+	<!-- ### SignBoard ### -->
+	<div class="icon">
+		<div class="signboard"></div>
+		<div class="signboard_arrow"></div>
+	</div>
+
+	<!-- ### Music Note ### -->
+	<div class="icon">
+		<div class="musicnote_base"></div>
+		<div class="musicnote_left"></div>
+		<div class="musicnote_right"></div>
+		<div class="musicnote_ovals"></div>
+	</div>
+
+	<!-- ### Key ### -->
+	<div class="icon">
+		<div class="key_base"></div>
+		<div class="key_squares"></div>
+	</div>
+
+	<!-- ### Download ### -->
+	<div class="icon">
+		<div class="download"></div>
+	</div>
+
+	<!-- ### Upload ### -->
+	<div class="icon">
+		<div class="upload"></div>
+	</div>
+
+	<!-- ### Reload ### -->
+	<div class="icon">
+		<div class="reload"></div>
+	</div>
+
+	<!-- ### Redo ### -->
+	<div class="icon">
+		<div class="redo_l"></div>
+		<div class="redo_r"></div>
+	</div>
+
+
+	<!-- ### LoopBack ### -->
+	<div class="icon">
+		<div class="loopback_l"></div>
+		<div class="loopback_r"></div>
+	</div>
+
+	<!-- ### Target ### -->
+	<div class="icon">
+		<div class="target"></div>
+	</div>
+
+	<!-- ### Lock Closed ### -->
+	<div class="icon">
+		<div class="lockClosed_base"></div>
+		<div class="lockClosed_handle"></div>
+	</div>
+
+	<!-- ### Lock Open ### -->
+	<div class="icon">
+		<div class="lockOpen_base"></div>
+		<div class="lockOpen_handle"></div>
+	</div>
+
+	<!-- ### Weight ### -->
+	<div class="icon">
+		<div class="weight"></div>
+	</div>
+
+	<!-- ### Light Bulb ### -->
+	<div class="icon">
+		<div class="bulb_glass"></div>
+		<div class="bulb_holder"></div>
+	</div>
+
+	<!-- ### Camera ### -->
+	<div class="icon">
+		<div class="camera_body"></div>
+		<div class="camera_lens"></div>
+	</div>
+
+	<!-- ### EarBuds ### -->
+	<div class="icon">
+		<div class="earbud_left"></div>
+		<div class="earbud_right"></div>
+	</div>
+
+	<!-- ### Restricted ### -->
+	<div class="icon">
+		<div class="restricted"></div>
+	</div>
+
+	<!-- ### Pin ### -->
+	<div class="icon">
+		<div class="pin_middle"></div>
+		<div class="pin_bottom"></div>
+	</div>
+
+	<!-- ### Plus ### -->
+	<div class="icon">
+		<div class="plus"></div>
+	</div>
+
+	<!-- ### Minus ### -->
+	<div class="icon">
+		<div class="minus"></div>
+	</div>
+
+	<!-- ### Flask ### -->
+	<div class="icon">
+		<div class="flask_body"></div>
+		<div class="flask_liquid"></div>
+	</div>
+
+	<!-- ### Test Tube ### -->
+	<div class="icon">
+		<div class="testtube_body"></div>
+		<div class="testtube_bubbles"></div>
+	</div>
+
+	<!-- ### DustBin ### -->
+	<div class="icon">
+		<div class="dustbin"></div>
+	</div>
+</div>
+<br /><br /><br /><br />
+<br /><br /><br /><br />
+<br /><br /><br /><br />

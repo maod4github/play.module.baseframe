@@ -1,0 +1,204 @@
+#. ------------------------------------------------------------------------------------------------- .#
+#. 作者:maodun																						 .#
+#. 版本号:v1.0																		         		 .#
+#. 创建时间:2015-08-04 11:44																			 .#
+#. 温馨提示:																							 .#
+#.	|. 开始编码前,还望先仔细看一遍,最好一个字都不要漏,清晰了规范再动手.													 .#
+#.	|. 此规范还望大家约束自己严格遵守,不要特立独行.																 .#
+#.	|. 有好的建议欢迎大家来跟我讲,我一定认真听,但至于是否采纳你宝贵的建议,最终决定权归我,尽管你觉得应该如此,我也有可能不予采纳,还望理解.	 	 .#
+#.	|. 前期可能有点不适应,望大家在开发过程中时刻考虑,模糊就来看一看.多谢你的理解,支持,配合.感谢.	 							 .#
+#. ------------------------------------------------------------------------------------------------- .#
+
+#. 约定俗成的缩写(代码中左边出现的一律用右边的缩写代替):
+
+	条件(相关条件方法的参数名按此规则标记前缀) : /eq等于/ne不等于/gt大于/lt小于/ge大于等于/le小于等于/in在里面/ni不再里面/
+
+	array ==> arr : 数组
+	argument ==> arg : 函数的自变量
+	address ==> addr : 地址
+	account ==> acco : 账户
+	attach ==> atc : 附上 
+	attachment ==> atcmt : 附件
+	boolean ==> bool : 布尔
+	calculate ==> calc : 计算
+	character ==> char : 字符
+	constant ==> const : 常量
+	config ==> conf : 配置
+	content ==> cont : 内容
+	current ==> cur : 当前
+	copy ==> cp : 复制
+	default ==> def : 默认
+	description ==> descr : 描述/备注
+	display ==> disp : 展示
+	dynamic ==> dyn : 动态
+	delete ==> del : 删除
+	document ==> docu : 文档
+	destination ==> dest : 目的地 
+	dictionary ==> dict : 字典/词典
+	different ==> diff : 不同的
+	extension ==> ext : 扩展
+	extract ==> extr : 提取
+	execute ==> exec : 执行
+	error ==> err : 错误
+	element ==> elem : 元素
+	function ==> fn : 功能
+	integer ==> int : 整型
+	image ==> img : 图片
+	length ==> len : 长度
+	list ==> ls : 列表
+	manager ==> mgr : 经理
+	message ==> msg : 消息
+	move ==> mv : 移动
+	make ==> mk : 制造
+	number ==> num : 数字
+	object ==> obj : 对象
+	original ==> ori : 原始
+	option ==> opt : 选项/条目
+	project ==> proj : 项目
+	performance == > perf : 性能
+	package ==> pkg : 包/包裹/包装
+	recommend ==> recom : 推荐
+	replace ==> rep : 替换
+	remove ==> rm : 移除
+	system ==> sys : 系统
+	string ==> str : 字符串
+	substring ==> substr : 子字符串
+	simple ==> simp : 简单
+	statistic ==> stat : 统计
+	validate code ==> vcode : 验证码
+	
+#. 路径请统一严格使用相对于根目录的绝对路径.
+	|. 范例1:/app/views/main.html
+	|. 范例2:/public/imgs/def.png
+
+#. 禁止无选择的"Ctrl + Shift + F"格式化代码.
+
+#. 请保持"Ctrl + Shift + O"的习惯.
+
+#. 命名时请三思,先起个干净漂亮的名字,再进行下一步.
+
+#. 类名/方法名遵循标准的驼峰标示命名规范(模型类除外),类名首字母大写,方法名首字母小写.
+
+#. 变量名(包括形参)采用下划线"_"分隔单词并且全小写.
+
+#. 类名中单词和拼音的缩写,全部大写,例:JSONHelper(JSON)
+
+#. 常量全大写.
+
+#. 类名/方法名/变量名的定义,组合顺序:副词/形容词/动词/名词.
+
+#. 布尔变量:以is或allow开头或able结尾.
+	|. 范例1:boolean is_valid = true;(是否有效)
+	|. 范例2:boolean allow_over = false;(允许超过)
+	|. 范例3:boolean draggable = true;(可拖曳的)
+
+#. 集合变量:以s结尾.
+	|. 范例1:List<T_demo> demos = new ArrayList<T_demo>();
+
+#. 数组变量:以_arr结尾.
+	|. 范例1:T_demo[] demo_arr = new T_demo[10];
+
+#. Map变量:以_kvs结尾.
+	|. 范例1:Map<String, Object> sys_conf_kvs = new HashMap<String, Object>();(系统配置键值对)
+
+#. 类名/方法名/变量名,定义"宁长勿缺",尽量保证语义完整,顾名思义.
+
+#. 左花括号"{"前要加空格,且不要放在行首.
+	|. 范例1:if (a == b) {
+	|. 范例2:for (int i = 1; i < 10; i++) {
+	|. 范例3:public class A {
+
+#. 运算符两边要空格.
+	|. 范例1:int a = 1 + 2;
+
+#. 当基础数据类型被当作形参时,一律使用其包装类,因为这样可方便调用者传参(基础数据类型或者是其包装类都可).
+
+#. 当基础数据类型被当作返回值时,一律使用基础数据类型,因为这样可以方便调用者接收返回值(用基础数据类型或者是其包装类作为接收变量都可).
+
+#. 所有非private的属性/方法/类必须加注释,private的最好也尽量加上,但不做强制要求.
+	|. 添加注释快捷键"Alt + Shift + J"
+
+#. controllers包下的类强调包结构,属于包下的类一律视为该分类,类名无需多加重复修饰.
+   	|. 范例1:controllers包下的类全部视为控制器类,例如该包下的类"BaseController" ==命名为=> "Base"即可.
+   	|. 范例2:controllers.front包下的类全部视为前台控制器类,例如该包下的类"UserController" ==命名为=> "User"即可.
+   	|. 范例3:controllers.back包下的类全部视为后台控制器类,例如该包下的类"AdminController" ==命名为=> "Admin"即可.
+
+#. 非controllers包下的类,类名统一添加后缀(所属包名单数形式).
+	|. 范例1:daos.UserDAO			daos ==后缀=> DAO
+	|. 范例2:blos.UserBLO			blos ==后缀=> BLO
+	|. 范例3:helpers.StringHelper	helpers ==后缀=> Helper
+
+#. controller禁止使用render();方法,统一使用renderTemplate("/app/views/xxx.html");方法明确指定视图模版.
+
+#. renderXxx();方法后请加上 return;.
+	|. 范例1:
+		renderTemplate("/app/views/xxx.html");
+		return;
+	|. 范例2:
+		renderJSON(res_info);
+		return;
+
+#. 每个controller仅仅对应一条路由配置,根据各自的模块,编号依次累加,配置规范详见路由配置文件routes.
+
+#. /app/views目录下的文件夹名全部小写.
+
+#. html文件顶部必须加上注释.
+	|. 范例1:
+		#{if __app_conf_mode?.equals('dev')}
+		<!-- 
+		描述:后台公共顶部页
+		匹配动作:controllers.front.Demo.home()
+		作者:maodun
+		创建时间:2015-08-05,12:55
+		 -->
+		#{/if}
+		
+		<script type="text/javascript">
+		$(funciton () {
+			// js都写在这里...
+		});
+		</script>
+
+#. html文件名全部小写,各单词用横线"-"分隔.
+
+#. html文件中禁止写%{...}%这种脚本,一律在controller处理.
+
+#. html模版文件内定义变量:
+	|. 统一前缀:"__otv_",意为"自己的模版变量",是"Own Template Variable"的首字母缩写,加此前缀是为了避免与从controller传递过来的变量冲突.
+	|. 统一使用:#{set __otv_xxx : xxx /}方式声明,补充说明:变量值可以是对象.
+	|. 统一使用:${__otv_xxx}方式调用.
+	|. 范例1:#{set __otv_title : '首页' /}
+	|. 范例2:#{set __otv_title : new String('首页') /}
+	|. 范例3:#{set __otv_disable_top : true /}
+	|. 范例4:#{set __otv_disable_bottom : new Boolean(false) /}
+
+#. js字符串最外层一律使用单引号"'".
+
+#. 所有model类,统一前缀"T_",必须打上@javax.persistence.Entity(name="table_name")注解.
+	|. 范例1:
+		@Entity(name="t_demo")
+		public class T_demo extends BaseModel {
+		}
+		 
+#. 所有的dao类统一继承BaseDAO<T extends BaseModel>,指定泛型T.(继承BaseDAO后则已提供基础的CRUD方法,请优先使用,请勿重复制造轮子.)
+
+#. 所有的dao类只允许提供形如saveXXX,delXXX,updateXXX,queryXXX的方法,并且其方法实现体优先使用Play.db.jpa.Model中封装好的方法,若不能满足则再用其他方式.
+	|. 需要用其他格式命名的场景请事先与我沟通,多谢.
+
+#. 所有的blo类统一继承BaseBLO<T extends BaseModel, U extends BaseDAO<T>>,指定泛型T和U.(继承BaseBLO后则已提供基础的CRUD方法,请优先使用,请勿重复制造轮子.)
+
+#. 最重要的一点:重构(代码美容).
+	|. 什么是重构?
+		|. 在不改变"软件的外部行为"前提下,对程序内部结构进行调整/抽取重复逻辑,让代码更容易理解/更容易维护.
+	|. 什么时候该重构?
+		|. 三次法则:事不过三,三则重构.意思是说,一件事情,第一次只管去做,第二次做类似的事情会产生反感,但无论如何还是做了,第三次再做类似的事情,你就应该重构.
+	|. 重构贯穿整个周期,请时刻保持重构意识.
+	|. 重构能提高软件开发速度.
+	|. 重构能提升代码可读性,可扩展性,执行效率.
+	|. 重构能大大降低后期维护难度.
+
+#. 开始编码前请先导入“代码注释模板.xml”与“代码格式化模板.xml”文件.
+	|. 文件路径:/代码注释模板.xml
+	|. 导入步骤(注:该导入方式只针对单个项目,不会影响全局工作空间.):右击项目名-->Properties-->Java Code Style-->Code Templates-->Enable project specific settings-->Import
+	|. 文件路径:/代码格式化模板.xml
+	|. 导入步骤(注:该导入方式只针对单个项目,不会影响全局工作空间.):右击项目名-->Properties-->Java Code Style-->Formatter-->Enable project specific settings-->Import

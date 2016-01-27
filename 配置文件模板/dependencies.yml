@@ -1,0 +1,15 @@
+# Application dependencies
+
+require:
+    - play 1.2.7
+    - baseframe -> com.shove.play.modules.baseframe 1.0.2
+
+
+# Local repositories
+repositories:
+    - confs:
+        type: local
+        artifact: ${application.path}/../[module]
+        contains: 
+             - baseframe -> *
+      

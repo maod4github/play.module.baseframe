@@ -1,0 +1,106 @@
+*{
+<!-- 
+描述:分页自定义标签页
+动作:无
+作者:maodun
+创建时间:2015-08-05,12:55
+参数列表:
+		参数名			必填					      取值类型						默认值					      描述
+--------------------------------------------------------------------------------------------------------------------------------
+		bean	  		是		{baseframe.daos.BaseDAO.PagingBean}		    无			  	 		分页Bean对象
+		skin	  		否					 {String}				  '#e75a3e'		     		皮肤颜色
+		skip	  		否					 {boolean}					false		     		是否开启跳页
+   	   groups	  		否					   {int}					 5			   			连续显示分页数
+    	first	  		否				 {String}{boolean}				'首页'	 		首页按钮文案,若想不显示首页按钮,设置false即可
+    	last	  		否				 {String}{boolean}				'末页'	 		末页按钮文案,若想不显示首页按钮,设置false即可
+    	prev	  		否				 {String}{boolean}				'<'	 			上一页按钮文案,若想不显示上一页按钮,设置false即可
+    	next	  		否				 {String}{boolean}				'>'	 			下一页按钮文案,若想不显示上一页按钮,设置false即可
+--------------------------------------------------------------------------------------------------------------------------------
+调用范例:
+#{baseframe.paging bean:paging_bean, skip:true, prev:'上一页', next:'下一页'}
+	layer.msg(
+		'这里是点击分页按钮的事件函数体' +
+		'当前页码:' + bean.cur + ', ' +
+		'总页码:' + bean.pages + ', ' + 
+		'连续分页数:' + bean.groups
+	);
+#{/baseframe.paging}
+ -->
+}*
+
+已过时，请参考baseframe.groovy.CustomTags._paging方法
+*{
+<style type="text/css">
+.laypage_main {}
+.laypage_main>a {border-radius:1px; width:auto; height:22px; line-height:22px;}
+.laypage_main>a:HOVER {border-color:${_skin ?: '#e75a3e'}; background-color:${_skin ?: '#e75a3e'}; color:#fff; transition:0.4s;}
+/* 
+.laypage_main>a.laypage_prev:HOVER {border-color:#ccc; background-color:#fff; color:#666;}
+.laypage_main>a.laypage_next:HOVER {border-color:#ccc; background-color:#fff; color:#666;}
+ */
+.laypage_main>span {width:auto; height:24px; line-height:24px;}
+.laypage_main>span.laypage_curr {border-radius:1px; background-color:${_skin ?: '#e75a3e'}; color:#fff; font-weight:normal; cursor:default; height:24px; line-height:24px;}
+.laypage_main>span>.laypage_skip {height:22px; line-height:22px;}
+.laypage_main>span>.laypage_btn {border-radius:1px; height:24px; line-height:22px; cursor:pointer;}
+.laypage_main>span>.laypage_btn:HOVER {border-color:${_skin ?: '#e75a3e'}; background-color:${_skin ?: '#e75a3e'}; color:#fff; transition:0.4s;}
+
+.laypage_main a, .laypage_main span {margin:0 3px 6px;}
+.laypage_main a {padding:0 10px;}
+.laypage_main span {padding:0 11px;}
+</style>
+
+#{set __otv_paging_container_id : 'paging-container-' + new java.util.Date().getTime() /}
+<script type="text/javascript" charset="UTF-8">
+	$(function () {
+		
+		$('#${__otv_paging_container_id}>.laypage_main>.laypage_total>.laypage_btn').live('click', function () {
+			var thiz = this;
+			var val = $.trim($(thiz).siblings('.laypage_skip').val());
+			if (val == '') {
+				return ;
+			}
+			val = Number(val);
+			var pages = Number('${_bean?.pages}');
+			if (val > pages) {
+				layer.msg('最多' + pages + '页');
+			}
+			else if (val < 1) {
+				layer.msg('最小1页');
+			}
+		});
+		
+		$('#${__otv_paging_container_id}>.laypage_main>.laypage_total>.laypage_skip').live('keyup', function (e) {
+			var thiz = this;
+			if (e.keyCode == ConstMgr.keyCodes.enter) {
+				$(thiz).siblings('.laypage_btn').click();
+			}
+		});
+		
+		$('#${__otv_paging_container_id}>.laypage_main>.laypage_last, .laypage_main>.laypage_first').live('mouseenter', function () {
+			$(this).attr('title', $(this).attr('data-page'));
+		});
+		
+		laypage({
+			cont: '${__otv_paging_container_id}',
+			pages: '${_bean?.pages}', // 总页数
+			curr: '${_bean?.cur}', // 当前页码
+//			skin: 'yahei', // 加载内置皮肤，支持'yahei'、'molv'，也可以直接赋值16进制颜色值，如:#E14339
+			skip: ${_skip ?: false}, // 是否开启跳页
+			groups: ${_groups == null ? 5 : (_groups < 1 ? 0 : _groups)}, // 连续显示分页数
+			first: #{if _first instanceof Boolean}${_first}#{/if}#{else}'${_first ?: "首页"}'#{/else}, // 首页按钮文案,默认为页码数字,若想不显示首页按钮,设置false即可
+		    last: #{if _last instanceof Boolean}${_last}#{/if}#{else}'${_last ?: "末页"}'#{/else}, // 末页按钮文案,默认为页码数字,若想不显示末页按钮,设置false即可
+			prev: #{if _prev instanceof Boolean}${_prev}#{/if}#{else}'${_prev ?: "<"}'#{/else}, // 上一页按钮文案,默认为'上一页',若想不显示上一页按钮,设置false即可
+		    next: #{if _next instanceof Boolean}${_next}#{/if}#{else}'${_next ?: ">"}'#{/else}, // 下一页按钮文案,默认为'下一页',若想不显示下一页按钮,设置false即可
+			jump: function (bean, is_first) {
+				bean.cur = bean.curr;
+				if (!is_first) {
+					#{doBody /}
+				}
+			}
+		});
+		
+	});
+</script>
+<div style="float:left; height:26px; line-height:26px; color:#999; padding:0px 12px; font-size:12px;">每页${_bean?.disp_count}条, 共${_bean?.total_count}条</div>
+<div id="${__otv_paging_container_id}" style="float:left; font-size:12px;"></div><div style="clear:both;"></div>
+}*

@@ -1,0 +1,73 @@
+@CHARSET "UTF-8";
+
+.__oc_uiw {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	height: 28px;
+	line-height: 28px;
+	vertical-align: middle;
+	background-color: #48c6c2;
+	color: #fff;
+	padding: 0px 10px;
+}
+
+.__oc_uiw>input[type='file'] {
+	position: absolute;
+	left: -200%;
+	top: 0px;
+	width: 300%;
+	height: 100%;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	cursor: pointer;
+	display: block;
+}
+
+a.__oc_uiw_tips_btn {
+	color: #fff;
+}
+
+a.__oc_uiw_tips_btn:HOVER {
+	text-decoration: underline;
+}
+
+a.__oc_uiw_unfold_btn {
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+a.__oc_uiw_unfold_btn:HOVER {
+	text-decoration: underline;
+}
+
+[__otp_uiw_more_displayer] {
+	
+}
+
+[__otp_uiw_more_displayer]>div {
+	display: inline-block;
+	position: relative;
+}
+
+[__otp_uiw_more_displayer]>div>img {
+	border-radius: 3px;
+	margin: 5px;
+	width: 100px;
+	height: 80px;
+	opacity: 1;
+}
+
+[__otp_uiw_more_displayer]>div>span {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	background-image: url(/public/baseframe/imgs/uiw-more-del-icon.png);
+	background-size: 30%;
+	cursor: pointer;
+	background-repeat: no-repeat;
+	background-position: center;
+}

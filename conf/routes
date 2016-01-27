@@ -1,0 +1,13 @@
+# This file defines all module routes (Higher priority routes first)
+#
+# import these routes in the main app as :
+# *     /                       module:com.shove.play.modules.baseframe
+#
+# ~~~~
+
+#. ------------------------- S 公共 -------------------------------------------------------------------------------------------------- .#
+# 字典
+*		/route/C1001/{action}.html/?			baseframe.Dict.{action}
+# 文件操作
+*		/route/C1002/{action}.html/?			baseframe.FileOperation.{action}
+#. ------------------------- E 公共 -------------------------------------------------------------------------------------------------- .#

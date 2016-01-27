@@ -1,0 +1,73 @@
+#{if play.mode.isDev()}
+<!-- 
+描述:基架基础页
+动作:无
+作者:maodun
+创建时间:2015-08-05,12:51
+ -->
+#{/if}
+
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+    
+        <meta charset="UTF-8">
+        
+        <title>${__otv_title ?: 'Shove晓风'}</title>
+        <meta http-equiv="x-ua-compatible" content="IE=edge">
+        
+        <link rel="shortcut icon" href="${__otv_shortcut_icon ?: '/public/baseframe/imgs/browser_tab_logo.jpg'}">
+        
+        <link rel="stylesheet" href="@{'/public/baseframe/csss/main.css'}">
+        <link rel="stylesheet" href="@{'/public/baseframe/csss/upload-img-widget.css'}">
+        <link rel="stylesheet" href="@{'/public/baseframe/csss/upload-docu-widget.css'}">
+        <link rel="stylesheet" href="@{'/public/baseframe/csss/banner.css'}">
+        
+        #{include '/app/views/baseframe/includes/css3-icon.html' /}
+        
+        <script type="text/javascript" src="@{'/public/baseframe/jss/jquery-1.11.0.min.js'}" charset="UTF-8"></script>
+        
+        <script type="text/javascript" src="@{'/public/baseframe/jss/jquery.form.js'}" charset="UTF-8"></script>
+        <script type="text/javascript" src="@{'/public/baseframe/jss/jquery.md5.js'}" charset="UTF-8"></script>
+        <script type="text/javascript" src="@{'/public/baseframe/jss/jquery.rotate-v2.3.min.js'}" charset="UTF-8"></script>
+        <script type="text/javascript" src="@{'/public/baseframe/jss/jquery.metadata.js'}" charset="UTF-8"></script>
+        <script type="text/javascript" src="@{'/public/baseframe/jss/jquery.lazyload.min.js'}" charset="UTF-8"></script>
+        
+        <script type="text/javascript" src="@{'/public/baseframe/jss/layer-v2.1/layer.js'}" charset="UTF-8"></script>
+        <script type="text/javascript" src="@{'/public/baseframe/jss/laydate-v1.1/laydate.js'}" charset="UTF-8"></script>
+        <script type="text/javascript" src="@{'/public/baseframe/jss/laypage-v1.2/laypage.js'}" charset="UTF-8"></script>
+        
+        #{include '/app/views/baseframe/includes/freedom-jss.html' /}
+        
+        #{include '/app/views/baseframe/includes/global-js-variables.html' /}
+        
+        <style type="text/css">
+        	.layui-layer-title {cursor:default !important;}
+        	#{if !preloadImgSrc?.equals('null')}
+        	img[__otp_fullname] {background:url('${preloadImgSrc}') no-repeat center;}
+        	#{/if}
+        </style>
+        
+        <script type="text/javascript">
+        	$(function () {
+        		__ogv.fns.loadImgs();
+        		layer.config({
+        			moveType : 0 // 0:有拖动阴影定位, 1:无拖动阴影,直接跟随鼠标
+        		});
+        		Printer.log('一张网页，要经历怎样的过程，才能抵达用户面前？\n一位新人，要经历怎样的成长，才能站在技术之巅？\n探寻这里的秘密！\n体验这里的挑战！\n成为这里的主人！\n加入英迈思，加入晓风，你，可以影响世界！！！');
+        		Printer.log('请将简历发送至：%c maodun@eims.com.cn（邮件标题请以“姓名-应聘XX职位-来自console”命名）', 'color:red');
+        		Printer.log('了解我们：http://www.eims.cn/index.aspx');
+        	});
+        </script>
+        
+    </head>
+    
+    <body>
+
+        #{doLayout /}
+        
+    </body>
+    
+</html>

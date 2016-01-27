@@ -1,0 +1,18 @@
+#{if play.mode.isDev()}
+<!-- 
+描述:视图架构范例-基础页
+动作:无
+作者:maodun
+创建时间:2015-08-05,12:55
+ -->
+#{/if}
+ 
+#{extends '/app/views/baseframe/base.html' /}
+#{set __otv_title : __otv_title ?: '项目默认标题' /}
+#{set __otv_shortcut_icon : __otv_shortcut_icon ?: '/public/baseframe/imgs/browser_tab_logo.jpg' /}
+
+<body>
+
+	#{doLayout /}
+	
+</body>

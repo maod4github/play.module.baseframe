@@ -1,0 +1,33 @@
+@CHARSET "UTF-8";
+
+.__oc_udw {
+	position: relative;
+	display: inline-block;
+	overflow: hidden;
+	height: 28px;
+	line-height: 28px;
+	vertical-align: middle;
+	background-color: #48c6c2;
+	color: #fff;
+	padding: 0px 10px;
+}
+
+.__oc_udw>input[type='file'] {
+	position: absolute;
+	left: -200%;
+	top: 0px;
+	width: 300%;
+	height: 100%;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	cursor: pointer;
+}
+
+a.__oc_udw_unfold_btn {
+	font-size: 12px;
+	margin-left: 10px;
+}
+
+a.__oc_udw_unfold_btn:HOVER {
+	text-decoration: underline;
+}

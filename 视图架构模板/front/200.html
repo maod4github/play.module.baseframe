@@ -1,0 +1,16 @@
+#{if play.mode.isDev()}
+<!-- 
+描述:前台-成功友好提示页
+动作:无
+作者:maodun
+创建时间:2015-09-08,14:55
+ -->
+#{/if}
+#{extends '/app/views/front/base.html' /}
+#{set __otv_title : '系统提示' /}
+<div>
+	<span>
+		${res_info?.msg}
+		<a href="${ret_url}">返回</a>
+	</span>
+</div>

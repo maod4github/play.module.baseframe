@@ -1,0 +1,25 @@
+
+# ------------- S 基架配置集 ----------------#
+
+# 应用基础URL(请根据环境设置对应的基础URL)
+bf.app_base_url=http://localhost:9001
+
+# 用户缓存有效期(单位：s/min/h/d)
+bf.cache.user.expires=30min
+
+# 管理员缓存有效期(单位：s/min/h/d)
+bf.cache.admin.expires=30min
+
+# 预加载图片src, if you needn't please set null
+bf.preload_img_src=/public/baseframe/jss/layer-v2.1/skin/default/loading-2.gif
+
+# 数据库备份路径(注意结尾加上"/")
+bf.dbbak_path=/dbbaks/
+
+# 短信服务开关(开:on, 关:off)
+bf.sms.toggle=off
+
+# 电邮服务开关(开:on, 关:off)
+bf.ems.toggle=off
+
+# ------------- E 基架配置集 ----------------#

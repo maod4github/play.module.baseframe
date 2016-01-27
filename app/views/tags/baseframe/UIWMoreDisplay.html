@@ -1,0 +1,39 @@
+*{
+<!-- 
+描述:上传多张图片控件展示自定义标签页
+动作:无
+作者:maodun
+创建时间:2015-08-05,12:55
+参数列表:
+		参数名			必填					        取值类型					默认值					      描述
+--------------------------------------------------------------------------------------------------------------------------------
+	  	name	  		 否					  {String}		   			null			  	 	隐藏域name,用于from提交
+       img_arr	  	 	 否					  {Array}<String>			null		     	   	展示图片数组
+        max	  	 	 	 否					  {Number}			 	    null	     	   		最多展示图片数
+--------------------------------------------------------------------------------------------------------------------------------
+调用范例:
+#{baseframe.UIWMoreDisplay name:'imgs', img_arr:proj?.disp_img_arr, max:3 /}
+ -->
+}*
+
+已过时，请参考baseframe.groovy.CustomTags._uiwMoreDisp方法
+*{
+<script type="text/javascript">
+$(function () {
+	$.each($('[__otp_uiw_more_displayer]'), function (i, v) {
+		var cur_count = $(v).find('img').length;
+		$(v).attr('__otp_cur_count', cur_count);
+	});
+});
+</script>
+
+#{list _img_arr, as : 'img' }#{if _max == null }<div>
+	<input type="hidden" name="${_name}" value="${img}" >
+	<img src="" __otp_fullname="${img}" >
+	<span __otp_fullname="${img}" title="删除" style="display: none;"></span>
+</div>#{/if}#{elseif img_index - 1 < _max }<div>
+	<input type="hidden" name="${_name}" value="${img}" >
+	<img src="" __otp_fullname="${img}" >
+	<span __otp_fullname="${img}" title="删除" style="display: none;"></span>
+</div>#{/elseif}#{/list}
+}*
